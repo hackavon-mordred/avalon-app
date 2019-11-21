@@ -21,6 +21,12 @@ game state: {{ (game | async)?.state }}
 
 <button *ngIf="(isAdmin() || chaosModeSynced) && isNightPhase(gameSynced) && !showRoles" (click)="showRolesFn()">reveal roles</button>
 
+<button *ngIf="isNightPhase(gameSynced) && !showRoles && !isReady()" (click)="readyCheck()">Ready</button>
+
+<div *ngIf="isNightPhase(gameSynced)">
+  0/10 Players Ready
+</div>
+
 <button *ngIf="isAdmin()" (click)="toggleChaosMode()">
   Turn {{ (chaosMode | async) ? "off" : "on" }} chaos mode
 </button>

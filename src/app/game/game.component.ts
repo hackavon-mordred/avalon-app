@@ -337,6 +337,7 @@ export class GameComponent implements OnInit {
   thumbs = null;
   allRoles = null;
   showRoles = null;
+
   isNightPhase(game) {
     if (!game || game.state != 'night-phase' || !game['nightInfo']) return false;
     if (!game['nightInfo'][this.selectedPlayer]) return false;
@@ -346,14 +347,35 @@ export class GameComponent implements OnInit {
   showRolesFn() {
     this.db.object('/game/showRoles').set(true);
   }
+
+
   //gameSynced;
   isNightPhaseX(game) {
     if (!game) return false;
     //this.gameSynced = game;
+    updateReadyPlayerCount(game);
     return game.state === 'night-phase';
   }
+  isReadyToPlay = null;
+  numPlayersReadyToPlay = null;
+  totalNumPlayers = null;
 
+  isReady() {
+    return this.isReadyToPlay
 
+  }
+
+  updateReadyPlayerCount(game) {
+    
+
+  }
+
+  
+
+  readyCheck() {
+    this.db.object('/game/nightInfo/' + this.selectedPlayer + '/readyCheck').set(true);
+    this.isReadyToPlay = true;
+  }
   
   toggleChaosMode() {
     this.chaosModeRef.valueChanges().pipe(first())
